@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/walm/Pictures/Wallpapers/Mojave-Dark.png' 

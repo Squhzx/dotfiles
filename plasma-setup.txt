@@ -1,0 +1,21 @@
+-- These are my settings and themes for KDE Plasma 6 on Fedora 40 --
+
+Global theme: MacSequoia-Dark
+Colors: MacSequoiaDark
+Application Style: Kvantum (MacSequoiaDark)
+Plasma Style: MacSequoia-Dark
+Window Decorations: Utterly-Round-Dark (No window borders)
+Icons: WhiteSur-Dark
+Cursors: Breeze Light
+System Sounds: Ocean
+Splash Screen: Utterly Nord
+Login Sceen (SDDM): MacSequoia-Dark
+Wallpaper: Sequoia Dark
+
+Important settings to remember:
+- Global menu widget on top panel
+- "Application Title Bar" Widget on top panel
+- "Translucency" on moving windows
+- Magic Lamp desktop effect
+- Wobbly Windows Desktop Effect
+- Panel height: 80

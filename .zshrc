@@ -1,17 +1,20 @@
 # Plugins
-#source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh #Causes stuttering with pacman#
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Zsh syntax highlighting config
-
-
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+# Some Zsh general configs
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=5000
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 bindkey -e
-# End of lines configured by zsh-newuser-install
 
 # Aliases
 alias cd..='cd ..'
@@ -31,7 +34,8 @@ alias zed='zeditor'
 alias config='code-insiders ~/.config/awesome/rc.lua'
 
 # User specific environment and startup programs
-export EDITOR="code-insiders"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$HOME/Apps/code-insider/bin:$PATH"
@@ -41,5 +45,5 @@ export PATH="$HOME/Apps/spicetify:$PATH"
 # Setup zoxide
 eval "$(zoxide init zsh)"
 
-# Setup starship
+# Setup starship (will be moving to oh-my-posh shortly)
 eval "$(starship init zsh)"

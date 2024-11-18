@@ -20,6 +20,7 @@ type = "prompt"
     background = "#3c4251"
     foreground = "#B8C0E0"
     leading_diamond = ""
+    trailing_diamond = ""
     style = "diamond"
     template = "{{ .UserName }} "
     type = "session"
@@ -27,8 +28,8 @@ type = "prompt"
     [[blocks.segments]]
     background = "#444c5d"
     foreground = "#B8C0E0"
-    powerline_symbol = ""
-    style = "powerline"
+    trailing_diamond = ""
+    style = "diamond"
     template = " {{ .Path }} "
     type = "path"
 
@@ -39,48 +40,28 @@ type = "prompt"
         folder_icon = "…"
 
     [[blocks.segments]]
-    background = "#ffb86c"
+    background = "#4c566a"
     foreground = "#B8C0E0"
-    style = "plain"
-    template = "  ({{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}) "
+    trailing_diamond = ""
+    style = "diamond"
+    template = "   {{ .HEAD }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} "
     type = "git"
 
         [blocks.segments.properties]
-        branch_icon = ""
+        branch_icon = ""
         fetch_stash_count = true
         fetch_status = false
         fetch_upstream_icon = true
-
-    [[blocks.segments]]
-    background = "#4C566A"
-    foreground = "#4C566A"
-    powerline_symbol = ""
-    style = "powerline"
-    template = "\u200B"
-    type = "text"
+        show_always = true
+        always_enabled = true
 
     [[blocks.segments]]
     background = "#8be9fd"
     foreground = "#B8C0E0"
-    style = "plain"
+    trailing_diamond = ""
+    style = "diamond"
     template = "  {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
     type = "node"
-
-    [[blocks.segments]]
-    background = "#86BBD8"
-    foreground = "#86BBD8"
-    powerline_symbol = ""
-    style = "powerline"
-    template = "\u200B"
-    type = "text"
-
-    [[blocks.segments]]
-    background = "#06969A"
-    foreground = "#06969A"
-    powerline_symbol = ""
-    style = "powerline"
-    template = "\u200B"
-    type = "text"
 
     [[blocks.segments]]
     background = "#33658A"
@@ -119,3 +100,7 @@ type = "rprompt"
     trailing_diamond = ""
     type = "aws"
 
+[transient_prompt]
+foreground = "#B8C0E0"
+background = "transparent"
+template = "$ "

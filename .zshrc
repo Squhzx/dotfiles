@@ -1,6 +1,6 @@
 # Plugins
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Some Zsh general configs
 HISTSIZE=5000
@@ -41,9 +41,20 @@ export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$HOME/Apps/code-insider/bin:$PATH"
 export PATH="$HOME/Apps/fd:$PATH"
 export PATH="$HOME/Apps/spicetify:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Setup zoxide
 eval "$(zoxide init zsh)"
 
-# Setup starship (will be moving to oh-my-posh shortly)
-eval "$(starship init zsh)"
+# Setup oh-my-posh
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh.toml)"
+
+# Functions
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

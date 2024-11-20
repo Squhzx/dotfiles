@@ -1,1 +1,1 @@
-This folder contains the configuration files for Ubuntu.
+This folder contains the configuration file versions specific for Ubuntu.

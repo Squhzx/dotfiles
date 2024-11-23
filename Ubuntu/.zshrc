@@ -34,8 +34,8 @@ alias zed='zeditor'
 alias config='code-insiders ~/.config/awesome/rc.lua'
 
 # User specific environment and startup programs
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="code-insiders"
+export VISUAL="code-insiders"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PATH="$HOME/Apps/code-insider/bin:$PATH"

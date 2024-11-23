@@ -1,0 +1,15 @@
+* {
+    font-family: "JetBrainsMono Nerd Font" !important;
+}
+
+.monaco-workbench .part.titlebar>.titlebar-container>.titlebar-left {
+    opacity: 0;
+}
+
+.container > .title {
+    display: none !important;
+  }
+
+.monaco-workbench .part.titlebar>.titlebar-container>.titlebar-center {
+    visibility: hidden;
+}

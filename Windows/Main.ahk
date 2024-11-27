@@ -3,7 +3,8 @@
 !+Right::Send("+{End}")
 !Left::Send("{Home}")
 !+Left::Send("+{Home}")
-!Backspace::Send("+{Home}{Delete}")
 
+; Delete an entire line
+!Backspace::Send("+{Home}"),Sleep(30),Send("{Delete}")
 ; Script to make closing windows in Windows easier
 !w::Send("!{F4}")

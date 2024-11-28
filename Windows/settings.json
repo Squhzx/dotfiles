@@ -65,7 +65,7 @@
     {
         "defaults": 
         {
-            "colorScheme": "Catppuccin Macchiato",
+            "colorScheme": "Catppuccin Macchiato Edited",
             "font": 
             {
                 "face": "GeistMono Nerd Font",
@@ -132,7 +132,7 @@
     "schemes": 
     [
         {
-            "background": "#292d3e",
+            "background": "#292D3E",
             "black": "#494D64",
             "blue": "#8AADF4",
             "brightBlack": "#5B6078",
@@ -155,21 +155,22 @@
             "yellow": "#EED49F"
         }
     ],
+    "theme": "Catppuccin Macchiato",
     "themes": 
     [
         {
             "name": "Catppuccin Macchiato",
             "tab": 
             {
-                "background": "#24273AFF",
+                "background": "#24273A00",
                 "iconStyle": "default",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
             "tabRow": 
             {
-                "background": "#1E2030FF",
-                "unfocusedBackground": "#181926FF"
+                "background": "terminalBackground",
+                "unfocusedBackground": "terminalBackground"
             },
             "window": 
             {
@@ -180,5 +181,6 @@
                 "useMica": false
             }
         }
-    ]
+    ],
+    "useAcrylicInTabRow": false
 }

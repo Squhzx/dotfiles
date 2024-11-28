@@ -1,5 +1,5 @@
 * {
-    font-family: "GeistMono Nerd Font" !important;
+    font-family: "GeistMono Nerd Font", monospace !important;
 }
 
 #workbench\.parts\.titlebar > div > div.titlebar-left > a {
@@ -13,34 +13,60 @@
 .monaco-workbench .part.titlebar>.titlebar-container>.titlebar-center {
     visibility: hidden;
 }
-/*
-.monaco-workbench .part.titlebar>.titlebar-container {
-    color: #303446 !important;
-}
 
-.monaco-workbench .part.titlebar {
-    background-color: #303446 !important;
-}
-
-.monaco-workbench .part.statusbar {
-    background-color: #303446 !important;
-}
-
-* {
-    --vscode-sideBar-background: #303446 !important;
-    --vscode-sideBarTitle-background: #303446 !important;
-    --vscode-sideBarSectionHeader-background: #303446 !important;
-    --vscode-sideBarStickyScroller-background: #303446 !important;
-}
-
-.sidebar {
-    background-color: #303446 !important;
-}
-
-canvas.decorationsOverviewRuler {
-    background-color: #303446 !important;
-}
-*/
 #workbench\.parts\.editor > div.content > div > div > div > div > div.monaco-scrollable-element > div.split-view-container > div > div > div.editor-container > div > div > div.overflow-guard > div.monaco-scrollable-element.editor-scrollable.vs-dark > canvas {
     display: none !important;
+}
+
+/* Scroll Bar */
+.slider {
+    border-radius: 10px;
+}
+
+/* Command Palette */
+.quick-input-widget {
+    transform: translateY(-50%) !important;
+    top: 50% !important;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, .45) !important;
+    padding: 10px 10px 18px 10px !important;
+    background-image: linear-gradient(#292d3e 0%, #1c1f2b 100%) !important;
+    backdrop-filter: blur(3px) !important;
+    border-radius: 20px !important;
+}
+
+/* Command palette text input */
+.quick-input-filter .monaco-inputbox {
+    border-radius: 12px !important;
+    padding: 8px !important;
+    border: none !important;
+    background-color: rgba(34, 34, 34, .40) !important;
+    font-size: 14px !important;
+    margin-bottom: 16px !important;
+    z-index: 11 !important;
+}
+
+#command-blur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .15);
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(8px);
+}
+
+/* Command palette's input box placeholder. */
+.monaco-inputbox input::placeholder {
+    color: rgba(255, 255, 255, .3) !important;
+}
+
+/* Tooltip box style */
+.monaco-editor-hover,
+.monaco-hover {
+    box-shadow: 0px 8px 32px rgba(0,0,0,.45) !important;
+    padding: 3px !important;
+    background-image: linear-gradient(#292d3e 0%, #1c1f2b 100%) !important;
+    backdrop-filter: blur(3px) !important;
+    border-radius: 20px !important;
+    border: none !important
 }

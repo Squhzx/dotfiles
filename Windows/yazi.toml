@@ -1,0 +1,7 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[opener]
+edit = [
+    { run = 'code-insiders %*',    orphan = true, desc = "code",           for = "windows" },
+	{ run = 'code-insiders -w %*', block = true,  desc = "code (block)",   for = "windows" }
+]

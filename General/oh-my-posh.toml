@@ -56,8 +56,8 @@ type = "prompt"
         always_enabled = true
 
     [[blocks.segments]]
-    background = "#8be9fd"
-    foreground = "#B8C0E0"
+    background = "#86BBD8"
+    foreground = "#4C566A"
     trailing_diamond = ""
     style = "diamond"
     template = "  {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "

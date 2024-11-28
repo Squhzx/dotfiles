@@ -1,5 +1,5 @@
 * {
-    font-family: "JetBrainsMono Nerd Font" !important;
+    font-family: "GeistMono Nerd Font" !important;
 }
 
 #workbench\.parts\.titlebar > div > div.titlebar-left > a {
@@ -8,12 +8,12 @@
 
 .container > .title {
     opacity: 0 !important;
-  }
+  }     
 
 .monaco-workbench .part.titlebar>.titlebar-container>.titlebar-center {
     visibility: hidden;
 }
-
+/*
 .monaco-workbench .part.titlebar>.titlebar-container {
     color: #303446 !important;
 }
@@ -40,7 +40,7 @@
 canvas.decorationsOverviewRuler {
     background-color: #303446 !important;
 }
-
+*/
 #workbench\.parts\.editor > div.content > div > div > div > div > div.monaco-scrollable-element > div.split-view-container > div > div > div.editor-container > div > div > div.overflow-guard > div.monaco-scrollable-element.editor-scrollable.vs-dark > canvas {
     display: none !important;
 }

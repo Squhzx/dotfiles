@@ -1,184 +1,216 @@
+### THIS FILE CONTAINS COMMANDS/FUNCTIONS THAT AUTORUN IN POWERSHELL STARTUP
+### USE AS A $profile FILE
+
+# Change powershell to only show current folder and drive letter
+#function prompt 
+#{
+#   ( get-location ).drive.name + ":\" + "...\" + $( (get-item $pwd).Parent.Name ) + "\" + $( (get-item $pwd).Name ) +" > "
+#}
+
+# Oh my posh
+oh-my-posh init pwsh --config ~/.config/oh-my-posh.toml | Invoke-Expression
+Enable-PoshTransientPrompt
+
+# Starship Invoke
+# Invoke-Expression (&starship init powershell)
+
+# Zoxide Invoke
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+## Aliases
+
+Set-Alias code code-insiders
+Set-Alias f fastfetch
+Set-Alias wget wget2
+Set-Alias py python
+Set-Alias vim nvim
+Set-Alias create touch
+Set-Alias n notepad
+Set-Alias grep rg
+Set-Alias ls shortlist
+Set-Alias ll longlist
+
+## Functions
+function cd...  { Set-Location ..\.. }
+function cd.... { Set-Location ..\..\.. }
+function .. { z .. }
+function ... { z ..\.. }
+function .... { z ..\..\.. }
+
+function y {
+    $tmp = [System.IO.Path]::GetTempFileName()
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath $cwd
+    }
+    Remove-Item -Path $tmp
+}
+
+function shortlist {
+    param (
+        [string]$Path = ".",
+        [int]$MinimumSpacing = 2,
+        [switch]$Recurse,
+        [string]$Filter,
+        [string]$Exclude,
+        [string]$Include,
+        [switch]$Force,
+        [switch]$Hide,
+        [switch]$Readonly,
+        [switch]$System
+    )
+
+    $items = Get-ChildItem @PSBoundParameters
+    $maxNameLength = ($items | Sort-Object { $_.Name.Length } | Select-Object -Last 1).Name.Length
+    $windowWidth = $host.UI.RawUI.WindowSize.Width
+    $itemsPerRow = [math]::Floor( ($windowWidth - $MinimumSpacing) / ($maxNameLength + $MinimumSpacing) )
+    $count = 0
+    $currentFolder = ""
+
+    foreach ($item in $items) {
+        if ($Recurse -and $item.DirectoryName -ne $currentFolder) {
+            Write-Host
+            Write-Host
+            Write-Host "Folder: $($item.DirectoryName)"
+            Write-Host
+            $currentFolder = $item.DirectoryName
+            $count = 0
+        }
+        
+        $itemName = $item.Name.PadRight($maxNameLength)
+        if ($item.PSIsContainer) {
+            Write-Host $item.Name -ForegroundColor White -BackgroundColor Blue -NoNewline
+            Write-Host (" " * ($maxNameLength - $item.Name.Length)) -NoNewline
+        } elseif ($item.Extension -match "\.exe$|\.bat$|\.cmd$|\.ps1$") {
+            Write-Host $itemName -ForegroundColor Green -NoNewline
+        } else {
+            Write-Host $itemName -ForegroundColor White -NoNewline
+        }
+
+        $count++
+        if ($count -ge $itemsPerRow) {
+            Write-Host
+            $count = 0
+        } else {
+            Write-Host (" " * $MinimumSpacing) -NoNewline
+        }
+    }
+
+    if ($count -ne 0) {
+        Write-Host
+    }
+}
+
+
+function longlist {
+    param (
+        [string]$Path = ".",
+        [switch]$Recurse,
+        [string]$Filter,
+        [string]$Exclude,
+        [string]$Include,
+        [switch]$Force,
+        [switch]$Hide,
+        [switch]$Readonly,
+        [switch]$System
+    )
+
+    $items = Get-ChildItem @PSBoundParameters
+    foreach ($item in $items) {
+        if ($item.PSIsContainer) {
+            Write-Host $item.Name -ForegroundColor White -BackgroundColor Blue -NoNewline
+            Write-Host "" -NoNewline  # Reset background color
+        } elseif ($item.Extension -match "\.exe$|\.bat$|\.cmd$|\.ps1$") {
+            Write-Host $item.Name -ForegroundColor Green -NoNewline
+        } else {
+            Write-Host $item.Name -ForegroundColor White -NoNewline
+        }
+
+        Write-Host ""
+    }
+}
+
+function dirs
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema-preview",
-    "actions": 
-    [
-        {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "id": "User.copy.644BA8F2"
-        },
-        {
-            "command": "paste",
-            "id": "User.paste"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878"
-        }
-    ],
-    "centerOnLaunch": true,
-    "copyFormatting": "none",
-    "copyOnSelect": false,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "initialCols": 130,
-    "initialPosition": ",",
-    "initialRows": 30,
-    "keybindings": 
-    [
-        {
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        },
-        {
-            "id": "User.paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        }
-    ],
-    "newTabMenu": 
-    [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles": 
+    if ($args.Count -gt 0)
     {
-        "defaults": 
-        {
-            "colorScheme": "Catppuccin Macchiato",
-            "font": 
-            {
-                "face": "JetBrainsMono Nerd Font",
-                "size": 13
-            },
-            "intenseTextStyle": "all",
-            "opacity": 80
-        },
-        "list": 
-        [
-            {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Zsh",
-                "source": "Git"
-            },
-            {
-                "commandline": "\"C:\\Program Files\\PowerShell\\7\\pwsh.exe\"",
-                "elevate": true,
-                "guid": "{0a471260-f080-4af2-8bd3-47f1ebefd7c2}",
-                "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/pwsh.png",
-                "name": "PowerShell (ADMIN)",
-                "startingDirectory": "%USERPROFILE%"
-            },
-            {
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            }
-        ]
-    },
-    "schemes": 
-    [
-        {
-            "background": "#24273A",
-            "black": "#494D64",
-            "blue": "#8AADF4",
-            "brightBlack": "#5B6078",
-            "brightBlue": "#8AADF4",
-            "brightCyan": "#8BD5CA",
-            "brightGreen": "#A6DA95",
-            "brightPurple": "#F5BDE6",
-            "brightRed": "#ED8796",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#EED49F",
-            "cursorColor": "#F4DBD6",
-            "cyan": "#8BD5CA",
-            "foreground": "#CAD3F5",
-            "green": "#A6DA95",
-            "name": "Catppuccin Macchiato",
-            "purple": "#F5BDE6",
-            "red": "#ED8796",
-            "selectionBackground": "#5B6078",
-            "white": "#B8C0E0",
-            "yellow": "#EED49F"
-        }
-    ],
-    "themes": 
-    [
-        {
-            "name": "Catppuccin Macchiato",
-            "tab": 
-            {
-                "background": "#24273AFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#1E2030FF",
-                "unfocusedBackground": "#181926FF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        }
-    ]
+        Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
+    }
+    else
+    {
+        Get-ChildItem -Recurse | Foreach-Object FullName
+    }
+}
+function admin
+{
+    if ($args.Count -gt 0)
+    {
+        $argsList = "& '" + $args + "'"
+        Start-Process "$psHome\pwsh.exe" -Verb runAs -ArgumentList $argsList
+    }
+    else {
+        Start-Process "$psHome\pwsh.exe" -Verb runAs
+    }
+}
+function uptime
+{
+    $ts = (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
+    $str = [string]::Format("{0} days, {1} hours, {2} minutes, {3} seconds",
+        $ts.Days, $ts.Hours, $ts.Minutes, $ts.Seconds)
+    $str
+}
+function find-file($name)
+{
+    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | select-object -expandproperty fullname
+}
+function touch($file) 
+{
+    "" | Out-File $file -Encoding ASCII
+}
+function which($name)
+{
+    Get-Command $name | Select-Object -ExpandProperty Definition
+}
+function pkill($name)
+{
+    Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
+}
+function export ($name, $value)
+{
+    set-item -force -path env:$name -value $value
+}
+
+## Temporary variables
+# Change 'CC' to 'gcc' for Mingw compatibility with Make
+$env:CC = "gcc"
+
+
+# Find out if the current user identity is elevated (has admin rights)
+$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object Security.Principal.WindowsPrincipal $identity
+$isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+# If so and the current host is a command line, then change to red color 
+# as warning to user that they are operating in an elevated context
+if (($host.Name -match "ConsoleHost") -and ($isAdmin))
+{
+     $host.UI.RawUI.BackgroundColor = "DarkRed"
+     $host.PrivateData.ErrorBackgroundColor = "White"
+     $host.PrivateData.ErrorForegroundColor = "DarkRed"
+     Clear-Host
+}
+
+# We don't need these any more; they were just temporary variables to get to $isAdmin. 
+# Delete them to prevent cluttering up the user profile. 
+Remove-Variable identity
+Remove-Variable principal
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
 }

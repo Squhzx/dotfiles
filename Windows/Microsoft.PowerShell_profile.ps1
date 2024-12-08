@@ -30,6 +30,17 @@ Set-Alias grep rg
 Set-Alias ls shortlist
 Set-Alias ll longlist
 
+## Temporary variables
+# Change 'CC' to 'gcc' for Mingw compatibility with Make
+$env:CC = "gcc"
+$env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
+$env:YAZI_CONFIG_HOME = "C:\Users\walm\AppData\Roaming\yazi"
+$env:EDITOR = "code-insiders"
+$env:VISUAL = "code-insiders"
+
+## Add to PATH
+$env:PATH += ";C:\Program Files\7-Zip"
+
 ## Functions
 function cd...  { Set-Location ..\.. }
 function cd.... { Set-Location ..\..\.. }
@@ -180,10 +191,6 @@ function export ($name, $value)
 {
     set-item -force -path env:$name -value $value
 }
-
-## Temporary variables
-# Change 'CC' to 'gcc' for Mingw compatibility with Make
-$env:CC = "gcc"
 
 
 # Find out if the current user identity is elevated (has admin rights)

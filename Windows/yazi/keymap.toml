@@ -1,0 +1,11 @@
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "l" ]
+run  = "plugin lazygit"
+desc = "Run Lazygit"
+
+[[manager.prepend_keymap]]
+on = [ "'", ";" ]
+run = "plugin custom-shell --args=pwsh"
+desc = "custom-shell as default"

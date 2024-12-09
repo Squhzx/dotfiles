@@ -9,3 +9,8 @@ desc = "Run Lazygit"
 on = [ "'", ";" ]
 run = "plugin custom-shell --args=pwsh"
 desc = "custom-shell as default"
+
+[[manager.prepend_keymap]]
+on   = [ "c", "a" ]
+run  = "plugin compress"
+desc = "Archive selected files"
